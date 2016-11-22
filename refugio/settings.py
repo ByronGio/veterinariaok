@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'refugio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +124,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+
+
+LOGIN_REDIRECT_URL = reverse_lazy('adopcion:solicitud_listar')
+LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'veterinariabyrongio'
+EMAIL_HOST_PASSWORD = 'Enh910..'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
